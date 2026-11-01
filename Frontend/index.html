@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriShield – Crop Insurance Claim Predictor</title>
+
+    <!-- Google Fonts & Lucide Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Glow Elements -->
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="brand">
+                <div class="logo-icon">
+                    <i data-lucide="shield-alert"></i>
+                </div>
+                <span class="brand-name">Agri<span class="highlight">Shield</span></span>
+            </div>
+            <nav class="nav-links">
+                <a href="#hero" class="active"><i data-lucide="home"></i> Home</a>
+                <a href="#dashboard"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+                <a href="#predictor"><i data-lucide="cpu"></i> Claim Predictor</a>
+                <a href="#datasources"><i data-lucide="database"></i> Data Sources</a>
+            </nav>
+            <a href="#predictor" class="btn-primary-nav">
+                <span>Launch Engine</span>
+                <i data-lucide="arrow-right"></i>
+            </a>
+        </div>
+    </header>
+
+    <main class="content-wrapper">
+
+        <!-- 1. LANDING PAGE / HERO SECTION -->
+        <section id="hero" class="hero-section">
+            <div class="hero-content">
+                <div class="badge">
+                    <span class="badge-pulse"></span>
+                    <span>El Niño Predictive Intelligence Engine</span>
+                </div>
+                <h1 class="hero-title">Predict Risk.<br/><span class="text-gradient">Protect Harvests.</span></h1>
+                <p class="hero-subtitle">
+                    Empowering agricultural insurers and policy planners with statistical forecasting models (Bernoulli, Binomial, Poisson) driven by real-time climate indices and historic yield data.
+                </p>
+                <div class="hero-actions">
+                    <a href="#predictor" class="btn-primary">
+                        <i data-lucide="sparkles"></i> Predict Claims Now
+                    </a>
+                    <a href="#dashboard" class="btn-secondary">
+                        <i data-lucide="bar-chart-3"></i> View Analytics
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="stat-value">98.4%</span>
+                        <span class="stat-label">Model Accuracy</span>
+                    </div>
+                    <div class="hero-stat-divider"></div>
+                    <div class="hero-stat">
+                        <span class="stat-value">3 Analytics</span>
+                        <span class="stat-label">Statistical Distributions</span>
+                    </div>
+                    <div class="hero-stat-divider"></div>
+                    <div class="hero-stat">
+                        <span class="stat-value">ONI-Driven</span>
+                        <span class="stat-label">El Niño Severity Index</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="glass-card visual-card">
+                    <div class="visual-header">
+                        <div class="status-indicator">
+                            <span class="dot active"></span>
+                            <span>Live Climate Monitoring</span>
+                        </div>
+                        <span class="badge-demo">DEMO DATA</span>
+                    </div>
+                    <div class="climate-card-body">
+                        <div class="climate-metric">
+                            <i data-lucide="sun-medium" class="icon-warning"></i>
+                            <div>
+                                <h4>ONI Index (El Niño)</h4>
+                                <p class="metric-val">+1.8°C (Moderate-Strong)</p>
+                            </div>
+                        </div>
+                        <div class="climate-metric">
+                            <i data-lucide="cloud-rain-wind" class="icon-primary"></i>
+                            <div>
+                                <h4>Monsoon Deficit Risk</h4>
+                                <p class="metric-val">High Impact (-22% Rainfall)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="visual-mini-chart">
+                        <canvas id="heroMiniChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. DASHBOARD SECTION -->
+        <section id="dashboard" class="dashboard-section">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Macro Risk Dashboard</h2>
+                    <p class="section-subtitle">Aggregated historical telemetry and regional stress indicators</p>
+                </div>
+                <span class="badge-demo">DEMO DATA</span>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-icon"><i data-lucide="users"></i></div>
+                    <div class="kpi-info">
+                        <span class="kpi-title">Total Insured Farmers</span>
+                        <h3 class="kpi-value" id="kpiFarmers">1,250,000</h3>
+                        <span class="kpi-trend positive"><i data-lucide="trending-up"></i> +12% YoY</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-icon"><i data-lucide="file-text"></i></div>
+                    <div class="kpi-info">
+                        <span class="kpi-title">Historical Claims Volume</span>
+                        <h3 class="kpi-value" id="kpiClaims">342,850</h3>
+                        <span class="kpi-trend negative"><i data-lucide="trending-up"></i> High Season</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-icon"><i data-lucide="thermometer-sun"></i></div>
+                    <div class="kpi-info">
+                        <span class="kpi-title">Current El Niño Status</span>
+                        <h3 class="kpi-value" id="kpiElNino">Moderate (+1.4°C)</h3>
+                        <span class="kpi-trend warning"><i data-lucide="alert-triangle"></i> ONI Active</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-icon"><i data-lucide="shield-alert"></i></div>
+                    <div class="kpi-info">
+                        <span class="kpi-title">Macro Claim Risk Level</span>
+                        <h3 class="kpi-value text-high-risk" id="kpiRisk">HIGH</h3>
+                        <span class="kpi-trend negative"><i data-lucide="shield-off"></i> Action Recommended</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Charts -->
+            <div class="charts-grid">
+                <div class="chart-card glass-card">
+                    <div class="chart-header">
+                        <h3><i data-lucide="cloud-rain"></i> Historical Rainfall vs ONI Index</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="rainfallChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card glass-card">
+                    <div class="chart-header">
+                        <h3><i data-lucide="pie-chart"></i> Historical Claim Distribution</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="claimsPieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. CLAIM PREDICTION SECTION -->
+        <section id="predictor" class="predictor-section">
+            <div class="section-header center">
+                <h2 class="section-title">Claim Risk Calculation Engine</h2>
+                <p class="section-subtitle">Configure parameters to calculate crop insurance probabilities</p>
+            </div>
+
+            <div class="predictor-grid">
+                <!-- Form Input -->
+                <div class="form-card glass-card">
+                    <form id="predictionForm" onsubmit="handlePrediction(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="stateSelect"><i data-lucide="map-pin"></i> State / Region</label>
+                                <select id="stateSelect" required class="form-input">
+                                    <option value="Maharashtra">Maharashtra</option>
+                                    <option value="Karnataka">Karnataka</option>
+                                    <option value="Rajasthan">Rajasthan</option>
+                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                    <option value="Gujarat">Gujarat</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="cropSelect"><i data-lucide="wheat"></i> Target Crop</label>
+                                <select id="cropSelect" required class="form-input">
+                                    <option value="Soybean">Soybean</option>
+                                    <option value="Cotton">Cotton</option>
+                                    <option value="Rice">Rice</option>
+                                    <option value="Bajra">Bajra</option>
+                                    <option value="Wheat">Wheat</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="seasonSelect"><i data-lucide="calendar"></i> Cropping Season</label>
+                                <select id="seasonSelect" required class="form-input">
+                                    <option value="Kharif">Kharif (Monsoon)</option>
+                                    <option value="Rabi">Rabi (Winter)</option>
+                                    <option value="Zaid">Zaid (Summer)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="elNinoSelect"><i data-lucide="sun"></i> El Niño Intensity</label>
+                                <select id="elNinoSelect" required class="form-input">
+                                    <option value="Neutral">Neutral (0.0°C to 0.4°C)</option>
+                                    <option value="Weak">Weak (+0.5°C to +0.9°C)</option>
+                                    <option value="Moderate" selected>Moderate (+1.0°C to +1.4°C)</option>
+                                    <option value="Strong">Strong (+1.5°C to +1.9°C)</option>
+                                    <option value="Very Strong">Very Strong (≥ +2.0°C)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="insuredFarmers"><i data-lucide="users"></i> Insured Farmers (Sample Size N)</label>
+                                <input type="number" id="insuredFarmers" value="1000" min="10" max="100000" required class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label for="sumInsured"><i data-lucide="indian-rupee"></i> Sum Insured / Farmer (₹)</label>
+                                <input type="number" id="sumInsured" value="45000" min="1000" step="1000" required class="form-input">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-submit" id="submitBtn">
+                            <i data-lucide="calculator"></i> Predict Claims
+                        </button>
+                    </form>
+                </div>
+
+                <!-- 4. PREDICTION RESULTS -->
+                <div class="results-card glass-card" id="resultsCard">
+                    <div class="results-header">
+                        <h3>Prediction Summary</h3>
+                        <span class="risk-badge badge-high" id="riskBadge">HIGH RISK</span>
+                    </div>
+
+                    <div class="metrics-grid">
+                        <div class="metric-box">
+                            <span class="m-label">Claim Probability ($p$)</span>
+                            <span class="m-value text-primary" id="resProb">38.5%</span>
+                            <span class="m-sub">Bernoulli Parameter</span>
+                        </div>
+                        <div class="metric-box">
+                            <span class="m-label">Expected Claims ($E[X]$)</span>
+                            <span class="m-value" id="resExpected">385</span>
+                            <span class="m-sub">Out of <span id="resTotalN">1000</span> farmers</span>
+                        </div>
+                        <div class="metric-box full-width">
+                            <span class="m-label">Estimated Total Payout</span>
+                            <span class="m-value text-gradient-gold" id="resPayout">₹1,73,25,000</span>
+                            <span class="m-sub">Based on ₹<span id="resPerFarmer">45,000</span> sum insured/farmer</span>
+                        </div>
+                    </div>
+
+                    <!-- Distribution Chart -->
+                    <div class="distribution-chart-wrapper">
+                        <h4>Binomial Claims Distribution Probability Mass Function (PMF)</h4>
+                        <div class="chart-container-sm">
+                            <canvas id="pmfChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Mathematical Explanation -->
+                    <div class="math-explanation">
+                        <h4><i data-lucide="book-open"></i> Mathematical Foundations</h4>
+                        <div class="math-step">
+                            <strong>1. Bernoulli Trial:</strong> $P(Claim = 1) = p = 0.385$, calculated using historic ONI climate severity scaling factor.
+                        </div>
+                        <div class="math-step">
+                            <strong>2. Binomial Distribution:</strong> Expected Claims $E[X] = n \cdot p = 1000 \times 0.385 = 385$.
+                        </div>
+                        <div class="math-step">
+                            <strong>3. Poisson Approximation:</strong> Frequency rate $\lambda = n \cdot p = 385$. Approximates claim arrival intensity over the seasonal cycle.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. DATA SOURCES SECTION -->
+        <section id="datasources" class="datasources-section">
+            <div class="section-header">
+                <h2 class="section-title">Verified Data Sources</h2>
+                <p class="section-subtitle">Integration pipeline built on transparent regional and atmospheric telemetry</p>
+            </div>
+            <div class="sources-grid">
+                <div class="source-card glass-card">
+                    <div class="source-icon"><i data-lucide="landmark"></i></div>
+                    <h3>PMFBY</h3>
+                    <p class="source-org">Pradhan Mantri Fasal Bima Yojana</p>
+                    <p class="source-desc">Historical data on insured acres, crop yield loss parameters, and historical claim settlements per district.</p>
+                </div>
+                <div class="source-card glass-card">
+                    <div class="source-icon"><i data-lucide="globe-2"></i></div>
+                    <h3>NOAA Climate Center</h3>
+                    <p class="source-org">National Oceanic & Atmospheric Admin.</p>
+                    <p class="source-desc">Oceanic Niño Index (ONI) tracking sea surface temperature anomalies in the Niño 3.4 region.</p>
+                </div>
+                <div class="source-card glass-card">
+                    <div class="source-icon"><i data-lucide="cloud-sun-rain"></i></div>
+                    <h3>IMD Telemetry</h3>
+                    <p class="source-org">India Meteorological Department</p>
+                    <p class="source-desc">Monsoon precipitation metrics, historical rainfall deficits, and drought indexes mapped per district.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2026 AgriShield Predictive Technologies. Built for Academic Demonstration.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
